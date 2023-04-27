@@ -4,9 +4,9 @@ const { Product, Category, Tag, ProductTag } = require("../../models");
 // The `/api/products` endpoint
 
 // get all products
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   // navigate to the root of the api/products endpoint
-  Product.findAll({
+  const productData = await Product.findAll({
     // find all products
     include: [
       {
@@ -18,20 +18,14 @@ router.get("/", (req, res) => {
         attributes: ["id", "tag_name"],
       },
     ],
-  })
-    .then((productData) => {
-      // send the product data back to the client as JSON
-      res.json(productData); // return the product data as JSON
-    })
-    .catch((err) => {
-      res.status(400).json(err);
-    });
+  });
+  res.json(productData); // return the product data as JSON
 });
 
 // get one product
-router.get("/:id", (req, res) => {
+router.get("/:id", async (req, res) => {
   // find a single product by its `id` value
-  Product.findOne({
+  const productData = await Product.findOne({
     where: {
       id: req.params.id,
     },
@@ -46,14 +40,8 @@ router.get("/:id", (req, res) => {
         attributes: ["id", "tag_name"],
       },
     ],
-  })
-    .then((productData) => {
-      // send the product data back to the client as JSON
-      res.json(productData); // return the product data as JSON
-    })
-    .catch((err) => {
-      res.status(400).json(err);
-    });
+  });
+  res.json(productData); // return the product data as JSON
 });
 
 // create new product
