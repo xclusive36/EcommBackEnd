@@ -10,6 +10,6 @@ app.use(express.urlencoded({ extended: true })); // parse incoming requests with
 
 app.use(routes); // turn on routes
 
-sequelize.sync({ force: true }).then(() => { // force: true will drop all tables and recreate them
+sequelize.sync({ force: false }).then(() => { // force: true will drop all tables and recreate them
   app.listen(PORT, () => console.log(`App listening on port ${PORT}!`)); // start listening
 });

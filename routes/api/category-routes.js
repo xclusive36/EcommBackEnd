@@ -4,6 +4,7 @@ const { Category, Product } = require("../../models");
 // The `/api/categories` endpoint
 
 router.get("/", async (req, res) => {
+
   // navigate to the root of the api/categories endpoint
   const categoryData = await Category.findAll({
     // find all categories
@@ -47,7 +48,10 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   // update a category by its `id` value
-  const categoryData = await Category.update(req.body, {
+  const categoryData = await Category.update({
+    // update a category by its `id` value
+    category_name: req.body.category_name, // use the key/value pairings we set up in the model
+  }, {
     // update a category by its `id` value
     where: {
       id: req.params.id,
