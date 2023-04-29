@@ -20,16 +20,16 @@ Ecommerce Back End software utilizing Object-Relational Mapping (ORM) software S
 
 ## Video
 
-- [Video]()  
+- [Video](https://drive.google.com/file/d/1xXd1xSFRpW99xx7TH5pY4e7KF43cLrbF/view)  
   Video of the application in use.
 
 ## Installation
 
-clone the project, while in the project folder run 'npm install'. Then run 'npm start' to run the project. To seed the project, run 'npm seed'. Rename the .env.EXAMPLE file to .env and update the database name, user, and password to your mysql password. The database will be created when you run 'npm seed'.
+clone the project, while in the project folder run 'npm install'. Then run 'npm start' to run the project. Rename the .env.EXAMPLE file to .env and update the database name, user, and password to your mysql password. The database will be created when you run 'npm run seed'.
 
 ## Usage
 
-Using the command line, run 'npm seed' to seed the databe, then 'npm start' to start the application. Use your prefered software to interact with the database. I used Insomnia Core to test the routes. The routes are as follows:
+Using the command line, run 'npm run seed' to seed the databe, then 'npm start' to start the application. Use your prefered software to interact with the database. I used Insomnia Core to test the routes. The routes are as follows:
 
 - /api/categories
 - /api/products
