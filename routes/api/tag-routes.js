@@ -35,13 +35,41 @@ router.get("/:id", async (req, res) => {
   res.json(tagData); // return the tag data as JSON
 });
 
-router.post("/", async (req, res) => {
+router.post("/", (req, res) => {
   // create a new tag
-  const tagData = await Tag.create({
+  /* req.body should look like this...
+    {
+      tag_name: "Basketball",
+      productIds: [1, 2, 3, 4]
+    }
+  */
+  Tag.create({
     // create a new tag
     tag_name: req.body.tag_name, // use the tag_name from the request body to populate the new tag
-  });
-  res.json(tagData); // return the tag data as JSON
+  })
+    .then((tag) => {
+      // if there's product tags, we need to create pairings to bulk create in the ProductTag model
+      if (req.body.productIds.length) {
+        // if there's product tags, we need to create pairings to bulk create in the ProductTag model
+        const productTagIdArr = req.body.productIds.map((product_id) => {
+          // map through each product_id
+          return {
+            // return a new object with the following properties
+            product_id,
+            tag_id: tag.id, // the product_id and the tag_id, which was saved as tag.id
+          };
+        });
+        return ProductTag.bulkCreate(productTagIdArr); // create multiple product tag entries
+      }
+      // if no product tags, just respond
+      res.status(200).json(tag); // if no product tags, just respond
+    })
+    .then((productTagIds) => res.status(200).json(productTagIds)) // return the product tag ids as JSON
+    .catch((err) => {
+      // catch any errors and return them as JSON
+      console.log(err);
+      res.status(400).json(err);
+    });
 });
 
 router.put("/:id", async (req, res) => {
